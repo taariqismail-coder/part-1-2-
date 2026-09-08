@@ -6,68 +6,77 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTest {
 
-    private Login login;
+    private Login system;
 
+    // This method runs before every test to create a fresh Login object
     @BeforeEach
     void setUp() {
-        login = new Login();
+        system = new Login();
     }
 
+    // Tests a correctly formatted username
     @Test
     void testUsernameCorrectlyFormatted() {
-        assertTrue(login.checkUserName("kyl_1"));
+        assertTrue(system.checkUserName("sip_3"));
         assertEquals("Username successfully captured.",
-                     login.getUsernameCaptureMessage("kyl_1"));
+                     system.getUsernameCaptureMessage("sip_3"));
     }
 
+    // Tests an incorrectly formatted username
     @Test
     void testUsernameIncorrectlyFormatted() {
-        assertFalse(login.checkUserName("kyle!!!!!!!"));
+        assertFalse(system.checkUserName("sipho!!!!"));
         assertEquals("Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.",
-                     login.getUsernameCaptureMessage("kyle!!!!!!!"));
+                     system.getUsernameCaptureMessage("sipho!!!!"));
     }
 
+    // Tests a password that meets the complexity rules
     @Test
     void testPasswordMeetsComplexity() {
-        assertTrue(login.checkPasswordComplexity("Ch&&sec@ke99!"));
+        assertTrue(system.checkPasswordComplexity("S@f3Code!"));
         assertEquals("Password successfully captured.",
-                     login.getPasswordCaptureMessage("Ch&&sec@ke99!"));
+                     system.getPasswordCaptureMessage("S@f3Code!"));
     }
 
+    // Tests a password that does not meet the complexity rules
     @Test
     void testPasswordDoesNotMeetComplexity() {
-        assertFalse(login.checkPasswordComplexity("password"));
+        assertFalse(system.checkPasswordComplexity("weakpass"));
         assertEquals("Password is not correctly formatted; please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.",
-                     login.getPasswordCaptureMessage("password"));
+                     system.getPasswordCaptureMessage("weakpass"));
     }
 
+    // Tests a correctly formatted cell phone number
     @Test
     void testCellPhoneCorrectlyFormatted() {
-        assertTrue(login.checkCellPhoneNumber("+27838968976"));
+        assertTrue(system.checkCellPhoneNumber("+27834567890"));
         assertEquals("Cell number successfully captured.",
-                     login.getCellPhoneCaptureMessage("+27838968976"));
+                     system.getCellPhoneCaptureMessage("+27834567890"));
     }
 
+    // Tests an incorrectly formatted cell phone number
     @Test
     void testCellPhoneIncorrectlyFormatted() {
-        assertFalse(login.checkCellPhoneNumber("08966553"));
+        assertFalse(system.checkCellPhoneNumber("0834567890"));
         assertEquals("Cell number is incorrectly formatted or does not contain an international code; please correct the number and try again.",
-                     login.getCellPhoneCaptureMessage("08966553"));
+                     system.getCellPhoneCaptureMessage("0834567890"));
     }
 
+    // Tests a successful login
     @Test
     void testLoginSuccessful() {
-        login.registerUser("kyl_1", "Ch&&sec@ke99!", "+27838968976", "Kyle", "Smith");
-        assertTrue(login.loginUser("kyl_1", "Ch&&sec@ke99!"));
-        assertEquals("Welcome Kyle Smith, it is great to see you again.",
-                     login.returnLoginStatus("kyl_1", "Ch&&sec@ke99!"));
+        system.registerUser("sip_3", "S@f3Code!", "+27834567890", "Sipho", "Dlamini");
+        assertTrue(system.loginUser("sip_3", "S@f3Code!"));
+        assertEquals("Welcome Sipho Dlamini, it is great to see you again.",
+                     system.returnLoginStatus("sip_3", "S@f3Code!"));
     }
 
+    // Tests a failed login
     @Test
     void testLoginFailed() {
-        login.registerUser("kyl_1", "Ch&&sec@ke99!", "+27838968976", "Kyle", "Smith");
-        assertFalse(login.loginUser("wrong", "wrong"));
+        system.registerUser("sip_3", "S@f3Code!", "+27834567890", "Sipho", "Dlamini");
+        assertFalse(system.loginUser("wrong", "wrong"));
         assertEquals("Username or password incorrect, please try again.",
-                     login.returnLoginStatus("wrong", "wrong"));
+                     system.returnLoginStatus("wrong", "wrong"));
     }
 }
