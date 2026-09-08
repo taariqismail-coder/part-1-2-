@@ -73,20 +73,26 @@ public class Login {
     }
 
     public String getUsernameCaptureMessage(String username) {
-        return checkUserName(username)
-                ? "Username successfully captured."
-                : "Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.";
+        if (checkUserName(username)) {
+            return "Username successfully captured.";
+        } else {
+            return "Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.";
+        }
     }
 
     public String getPasswordCaptureMessage(String password) {
-        return checkPasswordComplexity(password)
-                ? "Password successfully captured."
-                : "Password is not correctly formatted; please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.";
+        if (checkPasswordComplexity(password)) {
+            return "Password successfully captured.";
+        } else {
+            return "Password is not correctly formatted; please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.";
+        }
     }
 
     public String getCellPhoneCaptureMessage(String cell) {
-        return checkCellPhoneNumber(cell)
-                ? "Cell number successfully captured."
-                : "Cell number is incorrectly formatted or does not contain an international code; please correct the number and try again.";
+        if (checkCellPhoneNumber(cell)) {
+            return "Cell number successfully captured.";
+        } else {
+            return "Cell number is incorrectly formatted or does not contain an international code; please correct the number and try again.";
+        }
     }
 }
