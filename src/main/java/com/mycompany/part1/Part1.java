@@ -15,7 +15,6 @@ public class Part1 {
 
         System.out.print("Enter last name: ");
         String lastName = sc.nextLine();
-
         // Loop until username is valid
         String username;
         while (true) {
@@ -32,6 +31,7 @@ public class Part1 {
         while (true) {
             System.out.print("Enter password: ");
             password = sc.nextLine();
+
             System.out.println(login.getPasswordCaptureMessage(password));
             if (login.checkPasswordComplexity(password)) {
                 break;
