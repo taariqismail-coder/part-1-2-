@@ -120,4 +120,4 @@ public class LoginTest {
         assertEquals("Username or password incorrect, please try again.",
                 system.returnLoginStatus("wrong", "wrong"));
     }
-}
+} 
