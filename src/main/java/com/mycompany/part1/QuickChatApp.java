@@ -13,7 +13,6 @@ public class QuickChatApp {
         Scanner sc = new Scanner(System.in);
         Login login = new Login();
 
-        // ========== REGISTRATION SECTION ==========
         System.out.println("=== QuickChat Registration ===");
         System.out.print("First name: ");
         String first = sc.nextLine();
@@ -22,7 +21,6 @@ public class QuickChatApp {
 
         String username, password, cell;
 
-        // Keep asking for username until it is valid
         while (true) {
             System.out.print("Username: ");
             username = sc.nextLine();
@@ -30,7 +28,6 @@ public class QuickChatApp {
             if (login.checkUserName(username)) break;
         }
 
-        // Keep asking for password until it is valid
         while (true) {
             System.out.print("Password: ");
             password = sc.nextLine();
@@ -38,7 +35,6 @@ public class QuickChatApp {
             if (login.checkPasswordComplexity(password)) break;
         }
 
-        // Keep asking for cell number until it is valid
         while (true) {
             System.out.print("Cell (+27...): ");
             cell = sc.nextLine();
@@ -48,7 +44,6 @@ public class QuickChatApp {
 
         System.out.println(login.registerUser(username, password, cell, first, last));
 
-        // ========== LOGIN SECTION ==========
         System.out.println("\n=== Login ===");
         System.out.print("Username: ");
         String u = sc.nextLine();
@@ -56,13 +51,11 @@ public class QuickChatApp {
         String p = sc.nextLine();
         System.out.println(login.returnLoginStatus(u, p));
 
-        // Only continue if the user successfully logged in
         if (!login.isLoggedIn()) {
             System.out.println("You must be logged in to use QuickChat. Exiting.");
             return;
         }
 
-        // ========== PART 2 - SENDING MESSAGES ==========
         System.out.println("\nWelcome to QuickChat.");
 
         System.out.print("How many messages would you like to send? ");
@@ -70,7 +63,6 @@ public class QuickChatApp {
 
         int messagesCreated = 0;
 
-        // Main menu loop - keeps running until user chooses Quit
         while (true) {
             System.out.println("\nPlease choose an option:");
             System.out.println("1) Send Messages");
@@ -81,6 +73,7 @@ public class QuickChatApp {
 
             if (choice.equals("3")) {
                 System.out.println("Total messages sent: " + Message.returnTotalMessages());
+                Message.storeMessagesToJSON();
                 System.out.println("Goodbye!");
                 break;
             }
@@ -91,7 +84,6 @@ public class QuickChatApp {
             }
 
             if (choice.equals("1")) {
-                // Check if the user has already reached the limit
                 if (messagesCreated >= maxMessages) {
                     System.out.println("You have reached the maximum number of messages allowed.");
                     continue;
@@ -103,16 +95,13 @@ public class QuickChatApp {
                 System.out.print("Enter your message (max 250 characters): ");
                 String text = sc.nextLine();
 
-                // Validate message length
                 if (text.length() > 250) {
                     System.out.println("Please enter a message of less than 250 characters.");
                     continue;
                 }
 
-                // Create the message object
                 Message msg = new Message(recipient, text);
 
-                // Show the user all the details before they decide
                 System.out.println("\nMessage ID: " + msg.getMessageId());
                 System.out.println("Message Hash: " + msg.getMessageHash());
                 System.out.println("Recipient: " + msg.getRecipient());
